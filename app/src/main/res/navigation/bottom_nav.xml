@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/jokesListFragment">
+    <fragment
+        android:id="@+id/jokesListFragment"
+        android:name="com.example.chucknorrisjokes.ui.joke.JokesListFragment"
+        android:label="Jokes list" />
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.example.chucknorrisjokes.ui.web.WebFragment"
+        android:label="Api info" />
+</navigation>

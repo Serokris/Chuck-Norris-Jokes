@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Chuck Norris Jokes</string>
+    <string name="jokes">Jokes</string>
+    <string name="web">Web</string>
+    <string name="count">Count</string>
+    <string name="reload">Reload</string>
+    <string name="enter_number_jokes">Enter the number of jokes</string>
+    <string name="input_error">Input error! Perhaps there is no number entered in the "Count" field or there is no Internet connection</string>
+    <string name="hide_interface">Hide interface</string>
+    <string name="show_interface">Show interface</string>
+</resources>

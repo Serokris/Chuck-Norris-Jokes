@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionHideInterface"
+        android:title="@string/hide_interface"/>
+
+    <item
+        android:id="@+id/actionShowInterface"
+        android:title="@string/show_interface"/>
+</menu>
