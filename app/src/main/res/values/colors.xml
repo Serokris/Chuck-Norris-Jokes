@@ -9,7 +9,6 @@
     <color name="light_grey">#D3D3D3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <!-- Items color bottom navigation -->
     <color name="primaryDark">#263144</color>
     <color name="light_blue">#516DFF</color>

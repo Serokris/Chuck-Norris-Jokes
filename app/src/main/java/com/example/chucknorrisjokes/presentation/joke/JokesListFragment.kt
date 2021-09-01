@@ -1,4 +1,4 @@
-package com.example.chucknorrisjokes.ui.joke
+package com.example.chucknorrisjokes.presentation.joke
 
 import android.content.Context
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.example.chucknorrisjokes.R
 import com.example.chucknorrisjokes.databinding.FragmentJokesListBinding
-import com.example.chucknorrisjokes.viewmodel.JokeViewModel
+import com.example.chucknorrisjokes.presentation.viewmodel.JokeViewModel
 import kotlinx.coroutines.launch
 import android.net.ConnectivityManager
 import android.view.*
 import androidx.fragment.app.viewModels
-import com.example.chucknorrisjokes.data.network.response.JokeResponse
-import com.example.chucknorrisjokes.ui.MainActivity
+import com.example.chucknorrisjokes.domain.models.response.JokeResponse
+import com.example.chucknorrisjokes.presentation.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 

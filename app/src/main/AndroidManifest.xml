@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChuckNorrisJokes">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>

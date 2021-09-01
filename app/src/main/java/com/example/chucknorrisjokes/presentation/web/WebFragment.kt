@@ -1,4 +1,4 @@
-package com.example.chucknorrisjokes.ui.web
+package com.example.chucknorrisjokes.presentation.web
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,9 +10,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.chucknorrisjokes.databinding.FragmentWebBinding
-import com.example.chucknorrisjokes.ui.MainActivity
-
-private const val URL_API_SERVICE = "https://api.chucknorris.io/"
+import com.example.chucknorrisjokes.presentation.MainActivity
+import com.example.chucknorrisjokes.utils.Constants.BASE_URL
 
 class WebFragment : Fragment() {
 
@@ -30,18 +29,18 @@ class WebFragment : Fragment() {
 
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.builtInZoomControls = true
-        binding.webView.loadUrl(URL_API_SERVICE)
+        binding.webView.loadUrl(BASE_URL)
 
         val webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(URL_API_SERVICE)
+                view.loadUrl(BASE_URL)
 
                 if (url.contains("api.chucknorris.io")) {
                     return false
                 }
 
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                activity!!.startActivity(intent)
+                activity.startActivity(intent)
                 return true
             }
 

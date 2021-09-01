@@ -1,4 +1,4 @@
-package com.example.chucknorrisjokes.data.network.response
+package com.example.chucknorrisjokes.domain.models.response
 
 import com.google.gson.annotations.SerializedName
 

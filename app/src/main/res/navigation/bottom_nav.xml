@@ -6,10 +6,10 @@
     app:startDestination="@id/jokesListFragment">
     <fragment
         android:id="@+id/jokesListFragment"
-        android:name="com.example.chucknorrisjokes.ui.joke.JokesListFragment"
+        android:name="com.example.chucknorrisjokes.presentation.joke.JokesListFragment"
         android:label="Jokes list" />
     <fragment
         android:id="@+id/webFragment"
-        android:name="com.example.chucknorrisjokes.ui.web.WebFragment"
+        android:name="com.example.chucknorrisjokes.presentation.web.WebFragment"
         android:label="Api info" />
 </navigation>

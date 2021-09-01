@@ -1,11 +1,11 @@
-package com.example.chucknorrisjokes.ui.joke
+package com.example.chucknorrisjokes.presentation.joke
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chucknorrisjokes.data.network.response.JokeResponse
+import com.example.chucknorrisjokes.domain.models.response.JokeResponse
 import com.example.chucknorrisjokes.databinding.JokeItemBinding
 
 class JokeAdapter : ListAdapter<JokeResponse, JokeAdapter.ViewHolder>(DiffCallback) {

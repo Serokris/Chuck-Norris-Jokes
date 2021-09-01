@@ -1,7 +1,7 @@
 package com.example.chucknorrisjokes.di
 
-import com.example.chucknorrisjokes.data.network.BASE_URL
-import com.example.chucknorrisjokes.data.network.JokeApiService
+import com.example.chucknorrisjokes.data.source.remote.JokeApiService
+import com.example.chucknorrisjokes.utils.Constants.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object NetworkModule {
     @Singleton
     @Provides
     fun provideJokesApiService(): JokeApiService = Retrofit.Builder()

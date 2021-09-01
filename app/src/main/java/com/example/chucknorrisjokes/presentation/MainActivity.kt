@@ -1,4 +1,4 @@
-package com.example.chucknorrisjokes.ui
+package com.example.chucknorrisjokes.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
