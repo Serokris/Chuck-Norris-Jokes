@@ -52,7 +52,8 @@ class JokesListFragment : Fragment() {
             viewModel.viewModelScope.launch {
                 if (binding.countEditText.text!!.isNotEmpty() && isDigitsOnly && isInternetConnected()) {
                     for (i in 0 until count.toInt()) {
-                        jokeList.add(viewModel.fetchRandomJoke())
+                        val randomJoke = viewModel.fetchRandomJoke().body()
+                        if (randomJoke != null) jokeList.add(randomJoke)
                     }
                     adapter.submitList(jokeList)
                     jokeList = mutableListOf()
