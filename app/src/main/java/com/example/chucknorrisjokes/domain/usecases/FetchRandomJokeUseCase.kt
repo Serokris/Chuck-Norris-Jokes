@@ -5,8 +5,8 @@ import com.example.chucknorrisjokes.domain.repository.JokeRepository
 import retrofit2.Response
 import javax.inject.Inject
 
-class JokeUseCase @Inject constructor(private val repository: JokeRepository) {
-    suspend fun fetchRandomJoke(): Response<JokeResponse> {
+class FetchRandomJokeUseCase @Inject constructor(private val repository: JokeRepository) {
+    suspend fun execute(): Response<JokeResponse> {
         return repository.fetchRandomJoke()
     }
 }

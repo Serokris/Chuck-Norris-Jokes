@@ -17,7 +17,6 @@ import com.example.chucknorrisjokes.domain.models.response.JokeResponse
 import com.example.chucknorrisjokes.presentation.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class JokesListFragment : Fragment() {

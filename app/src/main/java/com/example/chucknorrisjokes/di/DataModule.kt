@@ -3,7 +3,7 @@ package com.example.chucknorrisjokes.di
 import com.example.chucknorrisjokes.data.repository.JokeRepositoryImpl
 import com.example.chucknorrisjokes.data.source.remote.JokeApiService
 import com.example.chucknorrisjokes.domain.repository.JokeRepository
-import com.example.chucknorrisjokes.domain.usecases.JokeUseCase
+import com.example.chucknorrisjokes.domain.usecases.FetchRandomJokeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideJokeUseCase(repository: JokeRepository): JokeUseCase {
-        return JokeUseCase(repository)
+    fun provideFetchRandomJokeUseCase(repository: JokeRepository): FetchRandomJokeUseCase {
+        return FetchRandomJokeUseCase(repository)
     }
 }
