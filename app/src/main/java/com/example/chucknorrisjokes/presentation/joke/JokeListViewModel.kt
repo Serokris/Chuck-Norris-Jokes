@@ -1,4 +1,4 @@
-package com.example.chucknorrisjokes.presentation.viewmodel
+package com.example.chucknorrisjokes.presentation.joke
 
 import androidx.lifecycle.ViewModel
 import com.example.chucknorrisjokes.domain.models.response.JokeResponse
@@ -10,7 +10,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class JokeViewModel @Inject constructor(
+class JokeListViewModel @Inject constructor(
     private val fetchRandomJokeUseCase: FetchRandomJokeUseCase
 ) : ViewModel() {
     suspend fun fetchRandomJoke(): Response<JokeResponse> {

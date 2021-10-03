@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chucknorrisjokes.domain.models.response.JokeResponse
 import com.example.chucknorrisjokes.databinding.JokeItemBinding
 
-class JokeAdapter : ListAdapter<JokeResponse, JokeAdapter.ViewHolder>(DiffCallback) {
+class JokeListAdapter : ListAdapter<JokeResponse, JokeListAdapter.ViewHolder>(DiffCallback) {
     class ViewHolder(private val binding: JokeItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(joke: JokeResponse) {
             binding.jokeDescription.text = joke.description

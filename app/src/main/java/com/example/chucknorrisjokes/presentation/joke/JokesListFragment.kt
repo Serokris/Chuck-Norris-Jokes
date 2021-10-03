@@ -8,39 +8,32 @@ import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.example.chucknorrisjokes.R
 import com.example.chucknorrisjokes.databinding.FragmentJokesListBinding
-import com.example.chucknorrisjokes.presentation.viewmodel.JokeViewModel
 import kotlinx.coroutines.launch
 import android.net.ConnectivityManager
 import android.view.*
 import androidx.fragment.app.viewModels
 import com.example.chucknorrisjokes.domain.models.response.JokeResponse
 import com.example.chucknorrisjokes.presentation.MainActivity
+import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class JokesListFragment : Fragment() {
+class JokesListFragment :
+    BaseBindingFragment<FragmentJokesListBinding>(FragmentJokesListBinding::inflate) {
 
-    private val viewModel: JokeViewModel by viewModels()
-    private lateinit var adapter: JokeAdapter
-    private lateinit var binding: FragmentJokesListBinding
+    private val viewModel: JokeListViewModel by viewModels()
+    private var bottomNavigationView: BottomNavigationView? = null
 
-    private lateinit var bottomNavigation: BottomNavigationView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        setHasOptionsMenu(true)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val activity = activity as MainActivity
         activity.supportActionBar?.show()
 
-        bottomNavigation = activity.findViewById(R.id.bottomNav)!!
+        bottomNavigationView = activity.findViewById(R.id.bottomNav)
 
-        binding = FragmentJokesListBinding.inflate(inflater)
-
-        adapter = JokeAdapter()
+        val adapter = JokeListAdapter()
         binding.recyclerView.adapter = adapter
 
         var jokeList = mutableListOf<JokeResponse>()
@@ -53,8 +46,11 @@ class JokesListFragment : Fragment() {
                 if (binding.countEditText.text!!.isNotEmpty() && isDigitsOnly && isInternetConnected()) {
                     for (i in 0 until count.toInt()) {
                         val randomJoke = viewModel.fetchRandomJoke().body()
-                        if (randomJoke != null) jokeList.add(randomJoke)
+                        if (randomJoke != null) {
+                            jokeList.add(randomJoke)
+                        }
                     }
+
                     adapter.submitList(jokeList)
                     jokeList = mutableListOf()
                 } else {
@@ -62,11 +58,10 @@ class JokesListFragment : Fragment() {
                 }
             }
         }
-
-        return binding.root
+        setHasOptionsMenu(true)
     }
 
-    private fun isInternetConnected() : Boolean {
+    private fun isInternetConnected(): Boolean {
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE)
                 as ConnectivityManager
         val netWorkInfo = connectivityManager.activeNetworkInfo
@@ -87,13 +82,13 @@ class JokesListFragment : Fragment() {
     }
 
     private fun hideInterface() {
-        bottomNavigation.visibility = View.INVISIBLE
+        bottomNavigationView?.visibility = View.INVISIBLE
         binding.countEditText.visibility = View.INVISIBLE
         binding.reloadButton.visibility = View.INVISIBLE
     }
 
     private fun showInterface() {
-        bottomNavigation.visibility = View.VISIBLE
+        bottomNavigationView?.visibility = View.VISIBLE
         binding.countEditText.visibility = View.VISIBLE
         binding.reloadButton.visibility = View.VISIBLE
     }

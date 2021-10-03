@@ -5,31 +5,28 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.chucknorrisjokes.databinding.FragmentWebBinding
 import com.example.chucknorrisjokes.presentation.MainActivity
-import com.example.chucknorrisjokes.utils.Constants.BASE_URL
+import com.example.chucknorrisjokes.common.Constants.BASE_URL
+import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 
-class WebFragment : Fragment() {
-
-    private lateinit var binding: FragmentWebBinding
+class WebFragment : BaseBindingFragment<FragmentWebBinding>(FragmentWebBinding::inflate) {
 
     @SuppressLint("SetJavaScriptEnabled")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val activity = activity as MainActivity
         activity.supportActionBar?.hide()
 
-        binding = FragmentWebBinding.inflate(inflater)
-
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.settings.builtInZoomControls = true
-        binding.webView.loadUrl(BASE_URL)
+        binding.webView.apply {
+            settings.javaScriptEnabled = true
+            settings.builtInZoomControls = true
+            loadUrl(BASE_URL)
+        }
 
         val webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
@@ -44,14 +41,15 @@ class WebFragment : Fragment() {
                 return true
             }
 
-            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
                 view?.loadUrl(request?.url.toString())
                 return super.shouldOverrideUrlLoading(view, request)
             }
         }
 
         binding.webView.webViewClient = webViewClient
-
-        return binding.root
     }
 }

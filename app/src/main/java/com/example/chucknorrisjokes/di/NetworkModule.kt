@@ -1,7 +1,7 @@
 package com.example.chucknorrisjokes.di
 
 import com.example.chucknorrisjokes.data.source.remote.JokeApiService
-import com.example.chucknorrisjokes.utils.Constants.BASE_URL
+import com.example.chucknorrisjokes.common.Constants.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -16,10 +16,25 @@ import javax.inject.Singleton
 object NetworkModule {
     @Singleton
     @Provides
-    fun provideJokesApiService(): JokeApiService = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(JokeApiService::class.java)
+    fun provideJokesApiService(
+        coroutineCallAdapterFactory: CoroutineCallAdapterFactory,
+        gsonConverterFactory: GsonConverterFactory
+    ): JokeApiService = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addCallAdapterFactory(coroutineCallAdapterFactory)
+        .addConverterFactory(gsonConverterFactory)
+        .build()
+        .create(JokeApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCoroutineCallAdapterFactory(): CoroutineCallAdapterFactory {
+        return CoroutineCallAdapterFactory.invoke()
+    }
+
+    @Singleton
+    @Provides
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
 }
