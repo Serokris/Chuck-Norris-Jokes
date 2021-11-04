@@ -1,19 +1,16 @@
 package com.example.chucknorrisjokes.presentation.joke
 
 import androidx.lifecycle.ViewModel
-import com.example.chucknorrisjokes.domain.models.response.JokeResponse
-import com.example.chucknorrisjokes.domain.usecases.FetchRandomJokeUseCase
+import com.example.domain.common.Result
+import com.example.domain.models.Joke
+import com.example.domain.usecases.FetchRandomJokeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class JokeListViewModel @Inject constructor(
     private val fetchRandomJokeUseCase: FetchRandomJokeUseCase
 ) : ViewModel() {
-    suspend fun fetchRandomJoke(): Response<JokeResponse> {
-        return withContext(Dispatchers.IO) { fetchRandomJokeUseCase.execute() }
-    }
+    suspend fun fetchRandomJoke(): Flow<Result<Joke>> = fetchRandomJokeUseCase.invoke()
 }

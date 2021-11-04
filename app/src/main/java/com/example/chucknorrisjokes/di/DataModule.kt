@@ -1,9 +1,9 @@
 package com.example.chucknorrisjokes.di
 
-import com.example.chucknorrisjokes.data.repository.JokeRepositoryImpl
-import com.example.chucknorrisjokes.data.source.remote.JokeApiService
-import com.example.chucknorrisjokes.domain.repository.JokeRepository
-import com.example.chucknorrisjokes.domain.usecases.FetchRandomJokeUseCase
+import com.example.data.repository.JokeRepositoryImpl
+import com.example.data.source.remote.JokeApiService
+import com.example.domain.repository.JokeRepository
+import com.example.domain.usecases.FetchRandomJokeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,7 @@
 package com.example.chucknorrisjokes.di
 
-import com.example.chucknorrisjokes.data.source.remote.JokeApiService
-import com.example.chucknorrisjokes.common.Constants.BASE_URL
+import com.example.chucknorrisjokes.utils.Constants.BASE_URL
+import com.example.data.source.remote.JokeApiService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -17,10 +17,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideJokesApiService(
+        baseUrl: String,
         coroutineCallAdapterFactory: CoroutineCallAdapterFactory,
         gsonConverterFactory: GsonConverterFactory
     ): JokeApiService = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(baseUrl)
         .addCallAdapterFactory(coroutineCallAdapterFactory)
         .addConverterFactory(gsonConverterFactory)
         .build()
@@ -37,4 +38,8 @@ object NetworkModule {
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+
+    @Singleton
+    @Provides
+    fun provideJokeApiServiceBaseUrl(): String = BASE_URL
 }

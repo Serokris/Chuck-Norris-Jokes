@@ -10,7 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.chucknorrisjokes.databinding.FragmentWebBinding
 import com.example.chucknorrisjokes.presentation.MainActivity
-import com.example.chucknorrisjokes.common.Constants.BASE_URL
+import com.example.chucknorrisjokes.utils.Constants.BASE_URL
 import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 
 class WebFragment : BaseBindingFragment<FragmentWebBinding>(FragmentWebBinding::inflate) {
