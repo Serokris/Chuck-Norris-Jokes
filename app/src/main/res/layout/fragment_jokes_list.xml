@@ -16,7 +16,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,14 +24,12 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:hint="@string/count"
+            android:inputType="number"
             android:textColor="@color/white"
             android:textColorHint="@color/teal_100"
             app:layout_constraintBottom_toTopOf="@+id/reloadButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.475"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/reloadButton"
@@ -44,11 +41,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
             android:id="@+id/loadingJokesProgressBar"

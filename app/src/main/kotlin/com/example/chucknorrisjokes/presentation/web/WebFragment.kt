@@ -15,10 +15,14 @@ import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 
 class WebFragment : BaseBindingFragment<FragmentWebBinding>(FragmentWebBinding::inflate) {
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun initViews() {
         val activity = activity as MainActivity
         activity.supportActionBar?.hide()
 

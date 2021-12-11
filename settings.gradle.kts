@@ -7,6 +7,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Chuck Norris Jokes"
-include ':app'
-include ':data'
-include ':domain'
+include(":app")
+include(":data")
+include(":domain")

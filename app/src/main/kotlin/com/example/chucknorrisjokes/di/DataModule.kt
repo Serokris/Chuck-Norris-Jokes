@@ -13,14 +13,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
-    @Singleton
+
     @Provides
+    @Singleton
     fun provideJokeRepository(apiService: JokeApiService): JokeRepository {
         return JokeRepositoryImpl(apiService)
     }
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideFetchRandomJokeUseCase(repository: JokeRepository): FetchRandomJokeUseCase {
         return FetchRandomJokeUseCase(repository)
     }

@@ -1,14 +1,13 @@
 package com.example.chucknorrisjokes.presentation.joke
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.text.isDigitsOnly
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.example.chucknorrisjokes.R
@@ -17,11 +16,8 @@ import com.example.chucknorrisjokes.presentation.MainActivity
 import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 import com.example.chucknorrisjokes.utils.hide
 import com.example.chucknorrisjokes.utils.show
-import com.example.domain.common.Result
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -30,10 +26,15 @@ class JokesListFragment :
 
     private val viewModel: JokeListViewModel by viewModels()
     private var bottomNavigationView: BottomNavigationView? = null
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        JokesListAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViews()
+        subscribeUi()
     }
 
     private fun initViews() {
@@ -42,42 +43,22 @@ class JokesListFragment :
 
         bottomNavigationView = activity.findViewById(R.id.bottomNav)
 
-        val adapter = JokeListAdapter()
-        binding.recyclerView.adapter = adapter
+        with(binding) {
+            recyclerView.adapter = adapter
+            reloadButton.setOnClickListener {
+                val count = countEditText.text.toString().toIntOrNull()
+                val isDigitsOnly = countEditText.text.toString().isDigitsOnly()
 
-        binding.reloadButton.setOnClickListener {
-            val count = binding.countEditText.text.toString().filter { it.isDigit() }
-            val isDigitsOnly: Boolean = TextUtils.isDigitsOnly(binding.countEditText.text)
-
-            viewModel.viewModelScope.launch {
-                binding.apply {
-                    if (countEditText.text!!.isNotEmpty() && isDigitsOnly && isInternetConnected()) {
+                viewModel.viewModelScope.launch {
+                    if (countEditText.text!!.isNotBlank() && isDigitsOnly) {
                         adapter.clearJokeList()
-                        for (i in 0 until count.toInt()) {
-                            viewModel.fetchRandomJoke().onEach { result ->
-                                when (result) {
-                                    is Result.Success -> {
-                                        loadingJokesProgressBar.hide()
-                                        val joke = result.data!!
-                                        adapter.addJoke(joke)
-                                    }
-                                    is Result.Loading -> {
-                                        loadingJokesProgressBar.show()
-                                    }
-                                    is Result.Error -> {
-                                        loadingJokesProgressBar.hide()
-                                        Toast.makeText(
-                                            requireContext(),
-                                            result.message,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            }.launchIn(viewModel.viewModelScope)
+                        for (i in 0 until count!!) {
+                            viewModel.fetchRandomJoke()
                         }
                     } else {
-                        Toast.makeText(requireContext(), R.string.input_error, Toast.LENGTH_LONG)
-                            .show()
+                        Toast.makeText(
+                            requireContext(), R.string.input_error, Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -85,11 +66,18 @@ class JokesListFragment :
         setHasOptionsMenu(true)
     }
 
-    private fun isInternetConnected(): Boolean {
-        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE)
-                as ConnectivityManager
-        val netWorkInfo = connectivityManager.activeNetworkInfo
-        return netWorkInfo != null && netWorkInfo.isConnected
+    private fun subscribeUi() {
+        viewModel.dataLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.loadingJokesProgressBar.isVisible = isLoading
+        }
+
+        viewModel.joke.observe(viewLifecycleOwner) { joke ->
+            adapter.addJoke(joke)
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
