@@ -2,13 +2,13 @@ package com.example.chucknorrisjokes.presentation.joke
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chucknorrisjokes.databinding.JokeItemBinding
 import com.example.domain.models.Joke
 
-class JokesListAdapter : RecyclerView.Adapter<JokesListAdapter.ViewHolder>() {
-
-    private val jokeList: MutableList<Joke> = mutableListOf()
+class JokesListAdapter : ListAdapter<Joke, JokesListAdapter.ViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -21,7 +21,7 @@ class JokesListAdapter : RecyclerView.Adapter<JokesListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = jokeList[position]
+        val currentItem = getItem(position)
         holder.bind(currentItem)
     }
 
@@ -31,9 +31,13 @@ class JokesListAdapter : RecyclerView.Adapter<JokesListAdapter.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int = jokeList.size
+    class DiffUtilCallback : DiffUtil.ItemCallback<Joke>() {
+        override fun areItemsTheSame(oldItem: Joke, newItem: Joke): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    fun addJoke(joke: Joke) = jokeList.add(joke)
-
-    fun clearJokeList() = jokeList.removeAll(jokeList)
+        override fun areContentsTheSame(oldItem: Joke, newItem: Joke): Boolean {
+            return oldItem.description == newItem.description
+        }
+    }
 }

@@ -9,16 +9,15 @@ import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.example.chucknorrisjokes.R
 import com.example.chucknorrisjokes.databinding.FragmentJokesListBinding
 import com.example.chucknorrisjokes.presentation.MainActivity
 import com.example.chucknorrisjokes.presentation.base.BaseBindingFragment
 import com.example.chucknorrisjokes.utils.hide
 import com.example.chucknorrisjokes.utils.show
+import com.example.domain.models.Joke
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class JokesListFragment :
@@ -29,6 +28,7 @@ class JokesListFragment :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         JokesListAdapter()
     }
+    private var jokesList = mutableListOf<Joke>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,17 +49,16 @@ class JokesListFragment :
                 val count = countEditText.text.toString().toIntOrNull()
                 val isDigitsOnly = countEditText.text.toString().isDigitsOnly()
 
-                viewModel.viewModelScope.launch {
-                    if (countEditText.text!!.isNotBlank() && isDigitsOnly) {
-                        adapter.clearJokeList()
-                        for (i in 0 until count!!) {
-                            viewModel.fetchRandomJoke()
-                        }
-                    } else {
-                        Toast.makeText(
-                            requireContext(), R.string.input_error, Toast.LENGTH_SHORT
-                        ).show()
+                if (countEditText.text!!.isNotBlank() && isDigitsOnly) {
+                    jokesList = emptyList<Joke>().toMutableList()
+                    for (i in 0 until count!!) {
+                        viewModel.fetchRandomJoke()
                     }
+                    adapter.submitList(jokesList)
+                } else {
+                    Toast.makeText(
+                        requireContext(), R.string.input_error, Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -72,7 +71,7 @@ class JokesListFragment :
         }
 
         viewModel.joke.observe(viewLifecycleOwner) { joke ->
-            adapter.addJoke(joke)
+            jokesList.add(joke)
         }
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
