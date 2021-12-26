@@ -2,6 +2,11 @@
 
 This application was made as a test task, [using this API](https://api.chucknorris.io/), providing jokes about Chuck Norris. 
 
+## __Architecture__
+
+* Architecture - Clean Architecture
+* Presentation layer pattern - MVVM
+
 ## __Screenshots__
 ![](screenshots/2021-08-23%2017.07.44.jpg)
 ![](screenshots/2021-08-23%2017.05.56.jpg)
