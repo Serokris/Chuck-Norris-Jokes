@@ -32,8 +32,8 @@ android {
     }
 }
 
-val junitVersion: String by rootProject.extra
-val junitExtensionVersion: String by rootProject.extra
+val jUnitVersion: String by rootProject.extra
+val androidTestExtensionVersion: String by rootProject.extra
 val retrofitVersion: String by rootProject.extra
 val gsonVersion: String by rootProject.extra
 
@@ -43,8 +43,8 @@ dependencies {
     implementation("javax.inject:javax.inject:1")
 
     // Testing
-    testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$junitExtensionVersion")
+    testImplementation("junit:junit:$jUnitVersion")
+    androidTestImplementation("androidx.test.ext:junit:$androidTestExtensionVersion")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")

@@ -42,8 +42,8 @@ android {
 }
 
 val navigationVersion: String by rootProject.extra
-val junitVersion: String by rootProject.extra
-val junitExtensionVersion: String by rootProject.extra
+val jUnitVersion: String by rootProject.extra
+val androidTestExtensionVersion: String by rootProject.extra
 val retrofitVersion: String by rootProject.extra
 val daggerVersion: String by rootProject.extra
 val gsonVersion: String by rootProject.extra
@@ -64,8 +64,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
 
     // Testing
-    testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$junitExtensionVersion")
+    testImplementation("junit:junit:$jUnitVersion")
+    androidTestImplementation("androidx.test.ext:junit:$androidTestExtensionVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     // Retrofit

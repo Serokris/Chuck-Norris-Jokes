@@ -5,8 +5,8 @@ buildscript {
         set("navigationVersion", "2.3.5")
         set("daggerVersion", "2.39.1")
         set("gsonVersion", "2.8.6")
-        set("junitVersion", "4.13.2")
-        set("junitExtensionVersion", "1.1.3")
+        set("jUnitVersion", "4.13.2")
+        set("androidTestExtensionVersion", "1.1.3")
     }
 
     val kotlinVersion: String by extra
